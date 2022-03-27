@@ -1,0 +1,50 @@
+﻿<Window x:Class="HealthyPeopleForFun.View.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:taskbar="clr-namespace:Hardcodet.Wpf.TaskbarNotification;assembly=Hardcodet.NotifyIcon.Wpf"
+		xmlns:local="clr-namespace:HealthyPeopleForFun.View"
+		mc:Ignorable="d"
+		Style="{StaticResource MainWindowStyle}">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"></ColumnDefinition>
+			<ColumnDefinition Width="auto"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+
+		<taskbar:TaskbarIcon Style="{StaticResource TaskbarIconStyle}" />
+		<local:SettingsControl Grid.Column="0"
+							   Visibility="{Binding IsSettingsViewVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+		<local:TimerControl Grid.Column="0"
+							Visibility="{Binding IsTimerViewVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+		<Grid Grid.Column="1"
+			  Margin="-55,25,0,0"
+			  VerticalAlignment="Top"
+			  Visibility="{Binding IsMainWindowVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition Height="auto"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Image Grid.Row="0"
+				   Source="/Assets/close.png"
+				   Style="{StaticResource ImageButtonStyle}"
+				   ToolTip="Close">
+				<Image.InputBindings>
+					<MouseBinding Command="{Binding ExitCommand}"
+								  MouseAction="LeftClick" />
+				</Image.InputBindings>
+			</Image>
+			<Image Grid.Row="1"
+				   Source="/Assets/settings.png"
+				   Style="{StaticResource ImageButtonStyle}"
+				   ToolTip="Expand">
+				<Image.InputBindings>
+					<MouseBinding Command="{Binding OpenSettingsCommand}"
+								  MouseAction="LeftClick" />
+				</Image.InputBindings>
+			</Image>
+		</Grid>
+	</Grid>
+</Window>
